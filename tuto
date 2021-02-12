@@ -1,0 +1,20 @@
+1) install stunnel (e.g: sudo apt-get install stunnel)
+
+2) go to /etc/stunnel/ and: 
+  -create a stunnel.conf file: 
+      | cert = /etc/stunnel/stunnel.pem
+      | sslVersion = TLSv1.2 
+      | pid = /stunnel.pid
+      | [name-of-service]
+      | accept = 127.0.0.1:1965 [port to listen]
+      | connect = 127.0.0.1:1964 [port to redirect]
+  -add a pem key using the following commands:
+    -openssl req -new -x509 -days 365 -nodes -out stunnel.pem -keyout stunnel.pem
+    -openssl genrsh 2048 >> stunnel.pem
+    -finally, move to the dir where you parametrized stunnel to find it
+
+3) run stunnel with sudo stunnel and remember that if you already ran that command
+   you should kill the process in order for it to load the new params you set up
+
+4) you are good to go, this mini tutorial was made with the haskell gemini-server in mind
+   and works quite well, hope it helps.
